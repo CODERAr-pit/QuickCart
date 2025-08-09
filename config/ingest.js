@@ -1,12 +1,12 @@
+// inngest.js
 import { Inngest } from "inngest";
-import { cache } from "react"; // ✅ Add this
 import connectDB from "./db";
 import User from "@/models/user";
 
-// ✅ Cache the Inngest client to prevent re-instantiation
-export const inngest = cache(() => new Inngest({ id: "quickcart" }))();
+// ✅ Create Inngest client once
+export const inngest = new Inngest({ id: "quickcart" });
 
-// Inngest function to save data to DB
+// Save user
 export const syncUserCreation = inngest.createFunction(
   { id: "sync-user-from-clerk" },
   { event: "clerk/user.created" },
